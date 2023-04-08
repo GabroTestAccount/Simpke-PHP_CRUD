@@ -1,6 +1,6 @@
 <?php
 include_once('connect.php');
-include('layout/header.php');
+include_once('layout/header.php');
 ?>
 <br>
 <div class="container text-light text-center bg-dark">
@@ -11,6 +11,33 @@ include('layout/header.php');
     </div>
 </div>
 <br>
+<!-- Failed Message -->
+<?php
+if (isset($_GET['failed_msg'])) {
+?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong> <?php echo $_GET["failed_msg"]; ?> </strong> .
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
+<!-- Success Message -->
+<?php
+if (isset($_GET['success_msg'])) {
+?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong> <?php echo $_GET["success_msg"]; ?> </strong> .
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
+<!-- Delete Message -->
+<?php
+if (isset($_GET['delete_msg'])) {
+?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong> <?php echo $_GET["delete_msg"]; ?> </strong> .
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php } ?>
 <table class="table">
     <thead class="table-dark">
         <row class="d-flex justify-content-between">
@@ -29,6 +56,8 @@ include('layout/header.php');
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
                 <th scope="col">Age</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
             </tr>
     </thead>
     <tbody>
@@ -47,7 +76,36 @@ include('layout/header.php');
                     <th scope="col"><?php echo $row['first_name']; ?></th>
                     <th scope="col"><?php echo $row['last_name']; ?></th>
                     <th scope="col"><?php echo $row['age']; ?></th>
+                    <th scope="col"><a href="CRUD/update_student.php?id=<?php echo $row['id']; ?>" name="update_student" class="btn btn-success">
+                            Update</a></th>
+                    <th scope="col">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_Student<?php echo $row['id']; ?>">
+                            Delete
+                        </button>
+                    </th>
+
                 </tr>
+                <!-- modal Delete-Student -->
+                <form action="CRUD/delete_student.php?id=<?php echo $row['id']; ?>" method="POST">
+                    <div class="modal fade" id="delete_Student<?php echo $row['id']; ?>" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Modal title</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you want to delete the student<u>
+                                            <?php echo $row['first_name'] . " " . $row['last_name']; ?></u>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" name="delete_Student" class="btn btn-danger" value="Delete">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
         <?php
             }
         }
@@ -55,15 +113,14 @@ include('layout/header.php');
     </tbody>
 </table>
 
-<!-- Modal -->
-<form action="add-students.php" method="POST">
-    <div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<!-- Modal Add-student -->
+<form action="CRUD/add-students.php" method="POST">
+    <div class="modal fade" id="addStudent" tabindex="-1" role="dialog" aria-labelledby="exam" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h5 class="modal-title" id="exam">Modal title</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body form-control">
@@ -87,13 +144,7 @@ include('layout/header.php');
             </div>
         </div>
     </div>
-    <?php
-    if (isset($_GET['failed_msg']))
-        echo '<h6>'.$_GET['failed_msg'].'</h6>';
-
-    if(isset($_GET['success_msg']))
-        echo '<h6>'.$_GET['success_msg'].'</h6>';
-    ?>
 </form>
+
 
 <?php include_once('layout/footer.php'); ?>
