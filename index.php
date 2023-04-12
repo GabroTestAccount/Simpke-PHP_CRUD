@@ -1,10 +1,18 @@
 <?php
+
+session_start();
+$_SESSION['current_page']="index";
+
 include_once('connect.php');
 include_once('layout/header.php');
+
+if (!isset($_SESSION['username']))
+    header("location:login.php?failed_msg=you don't have access please login or sign up to enter this site");
+
 ?>
 <br>
-<div class="container text-light text-center bg-dark">
-    <div class="row">
+<div class="container ">
+    <div class="row text-light text-center bg-dark">
         <div class="col">
             <h1>Index page</h1>
         </div>
@@ -17,7 +25,7 @@ if (isset($_GET['failed_msg'])) {
 ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong> <?php echo $_GET["failed_msg"]; ?> </strong> .
-        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php } ?>
 <!-- Success Message -->
@@ -26,7 +34,7 @@ if (isset($_GET['success_msg'])) {
 ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong> <?php echo $_GET["success_msg"]; ?> </strong> .
-        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php } ?>
 <!-- Delete Message -->
@@ -35,7 +43,7 @@ if (isset($_GET['delete_msg'])) {
 ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong> <?php echo $_GET["delete_msg"]; ?> </strong> .
-        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php } ?>
 <table class="table">
@@ -46,7 +54,7 @@ if (isset($_GET['delete_msg'])) {
             </div>
             <div class="col-2">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudent">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudent">
                     Add Student
                 </button>
             </div>
@@ -79,7 +87,7 @@ if (isset($_GET['delete_msg'])) {
                     <th scope="col"><a href="CRUD/update_student.php?id=<?php echo $row['id']; ?>" name="update_student" class="btn btn-success">
                             Update</a></th>
                     <th scope="col">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_Student<?php echo $row['id']; ?>">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_Student<?php echo $row['id']; ?>">
                             Delete
                         </button>
                     </th>
@@ -92,14 +100,13 @@ if (isset($_GET['delete_msg'])) {
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">Modal title</h5>
-                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <p>Do you want to delete the student<u>
                                             <?php echo $row['first_name'] . " " . $row['last_name']; ?></u>?</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <input type="submit" name="delete_Student" class="btn btn-danger" value="Delete">
                                 </div>
                             </div>
@@ -120,7 +127,7 @@ if (isset($_GET['delete_msg'])) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exam">Modal title</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body form-control">
@@ -138,7 +145,6 @@ if (isset($_GET['delete_msg'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <input type="submit" name="add-Student" class="btn btn-success" value="Save changes"></button>
                 </div>
             </div>

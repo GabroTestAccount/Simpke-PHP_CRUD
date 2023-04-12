@@ -1,8 +1,12 @@
 <?php
 
+session_start();
 include('../connect.php');
 include('../layout/header.php');
 include('../layout/footer.php');
+
+if (!isset($_SESSION['username']))
+    header("location:login.php?failed_msg=you don't have access please login or sign up to enter this site");
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -21,7 +25,6 @@ if (isset($_GET['id'])) {
 if (isset($_POST['update_Student'])) {
     if (isset($_GET['student_id'])) {
         $student_id = $_GET['student_id'];
-        echo '<h1>yess </h1>';
     }
     $first_name1 = $_POST['first_name'];
     $last_name1 = $_POST['last_name'];
@@ -43,7 +46,7 @@ if (isset($_POST['update_Student'])) {
 }
 
 ?>
-<div class=" text-light text-center bg-dark">
+<div class="text-light text-center bg-dark">
     <div class="row">
         <div class="col">
             <h1>Update page</h1>
@@ -70,7 +73,6 @@ if (isset($_POST['update_Student'])) {
                 </div>
             </div>
             <div class="card-footer text-muted">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <input type="submit" name="update_Student" class="btn btn-success" value="Update"></button>
             </div>
         </div>
