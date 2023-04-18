@@ -4,7 +4,7 @@ include('../connect.php');
 
 if(isset($_POST['signup'])){
 
-    $name=$_POST['name'];
+    $name= ucwords($_POST['name']);//each first letter after space become Upper 
     $email=$_POST['email'];
     $password=$_POST['password'];
     $confirm_password=$_POST['confirm_password'];

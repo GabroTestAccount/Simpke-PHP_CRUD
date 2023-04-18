@@ -41,7 +41,7 @@ if (isset($_POST['update_Student'])) {
     if (!$result) {
         die('Error' . mysqli_error($conn));
     } else {
-        header('location:../index.php?success_msg=your data has been updated successfully');
+        header('location:../students.php?success_msg=your data has been updated successfully');
     }
 }
 

@@ -24,7 +24,8 @@ if (isset($_POST['login'])) {
                     header("location:../login.php?failed_msg=Email and password are not identical");
                 } else {
                     $_SESSION['username'] = $admain['name'];
-                    header("location:../index.php?success_msg=Logged in has been successfully");
+                    $_SESSION['id'] = $admain['id'];
+                    header("location:../students.php?success_msg=Logged in has been successfully");
                 }
             } else {
                 header("location:../login.php?failed_msg=Email and password are not identical");
