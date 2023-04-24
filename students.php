@@ -77,6 +77,12 @@ if (isset($_GET['delete_msg'])) {
         <?php
         if (mysqli_num_rows($result) > 0) {
             //fetch data to use them
+            /* 
+                *if we have 2 or more results [mysqli_fetch_assoc] will
+                get one row of data .so,here we put it in loop it will get 
+                one row each time and we print it and the pointer will get 
+                second row etc.. .
+            */
             while ($row = mysqli_fetch_assoc($result)) {
         ?>
                 <tr>

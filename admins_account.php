@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+$_SESSION['current_page'] = "Edit Profile";
 include('connect.php');
 include('layout/header.php');
 $id = $_SESSION['id'];
@@ -33,7 +33,7 @@ if (isset($_GET['success_msg'])) {
     </div>
 <?php } ?>
 <div class="container">
-    <form action="CRUD/edit_admin_profile.php" method="POST">
+    <form action="CRUD/edit_admin_account.php" method="POST">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="name" name="name" class="form-control" id="name" aria-describedby="nameHelp" value="<?php echo $row['name']; ?>" required>

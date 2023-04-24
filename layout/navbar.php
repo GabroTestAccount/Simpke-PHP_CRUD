@@ -1,36 +1,36 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <?php  if(isset($_SESSION['username'])) {?>
-        <a href="#">
-            <img src="css/images/coco.jpg" class="rounded-circle x-cm-thum" width="40px" height="40px" alt="profile image">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Pages
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="students.php">Students</a></li>
-                            <li><a class="dropdown-item" href="last_record.php">Get Last Records</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                </li>
+        <?php if (isset($_SESSION['username'])) { ?>
+            <a href="#">
+                <img src="/PHP_project/PHP_Simple_CRUD/css/images/coco.jpg" class="rounded-circle x-cm-thum" width="40px" height="40px" alt="profile image">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/PHP_project/PHP_Simple_CRUD/index.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pages
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/PHP_project/PHP_Simple_CRUD/students.php">Students</a></li>
+                                <li><a class="dropdown-item" href="/PHP_project/PHP_Simple_CRUD/last_record.php">Get Last Records</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </li>
 
-                <span class="navbar-text">
-                    <?php if (isset($_SESSION['current_page']))
-                        echo '| '.$_SESSION['current_page']; ?>
-                </span>
-            </ul>
-            <?php }?>
+                    <span class="navbar-text text-success ">
+                        <?php if (isset($_SESSION['current_page']))
+                            echo '| ' . $_SESSION['current_page']; ?>
+                    </span>
+                </ul>
+            <?php } ?>
             <ul>
                 <?php
                 if (!isset($_SESSION['username'])) {
@@ -54,21 +54,21 @@
             </ul>
             <ul>
                 <?php
-                if (isset($_SESSION['username'])){
-                    
+                if (isset($_SESSION['username'])) {
+
                 ?>
-                <div class="btn-group ">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $_SESSION['username'];?>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item "  href="CRUD/logout.php" >Logout</a></li>
-                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                        <li><a class="dropdown-item" href="#">Menu item</a></li>
+                    <div class="btn-group ">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php echo $_SESSION['username']; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="admins_account.php">Edit Account</a></li>
+                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                            <li><a class="dropdown-item " href="CRUD/logout.php">Logout</a></li>
                         <?php } ?>
-                    </ul>
-                </div>
-        </div>
+                        </ul>
+                    </div>
+            </div>
     </div>
 
 </nav>

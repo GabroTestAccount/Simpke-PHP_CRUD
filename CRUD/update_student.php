@@ -3,7 +3,6 @@
 session_start();
 include('../connect.php');
 include('../layout/header.php');
-include('../layout/footer.php');
 
 if (!isset($_SESSION['username']))
     header("location:login.php?failed_msg=you don't have access please login or sign up to enter this site");
