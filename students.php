@@ -7,8 +7,10 @@ include_once('connect.php');
 include_once('layout/header.php');
 
 if (!isset($_SESSION['username']))
-    header("location:login.php?failed_msg=you don't have access please login or sign up to enter this site");
-
+    {
+        $_SESSION['failed_msg']= "you don't have access please login or sign up to enter this site";
+        header("location:login.php");
+    }
 ?>
 <br>
 <div class="container ">
@@ -21,31 +23,37 @@ if (!isset($_SESSION['username']))
 <br>
 <!-- Failed Message -->
 <?php
-if (isset($_GET['failed_msg'])) {
+if (isset($_SESSION['failed_msg'])) {
 ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong> <?php echo $_GET["failed_msg"]; ?> </strong> .
+        <strong> <?php echo $_SESSION["failed_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php } ?>
+<?php 
+    unset($_SESSION["failed_msg"]);
+} ?>
 <!-- Success Message -->
 <?php
-if (isset($_GET['success_msg'])) {
+if (isset($_SESSION['success_msg'])) {
 ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong> <?php echo $_GET["success_msg"]; ?> </strong> .
+        <strong> <?php echo $_SESSION["success_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php } ?>
+<?php
+    unset($_SESSION["success_msg"]); 
+} ?>
 <!-- Delete Message -->
 <?php
-if (isset($_GET['delete_msg'])) {
+if (isset($_SESSION['delete_msg'])) {
 ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong> <?php echo $_GET["delete_msg"]; ?> </strong> .
+        <strong> <?php echo $_SESSION["delete_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php } ?>
+<?php 
+    unset($_SESSION["delete_msg"]);
+} ?>
 <table class="table">
     <thead class="table-dark">
         <row class="d-flex justify-content-between">

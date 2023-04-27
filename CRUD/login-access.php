@@ -7,7 +7,8 @@ include('../connect.php');
 if (isset($_POST['login'])) {
 
     if (empty($_POST['email']) || empty($_POST['password'])) {
-        header("location:../login.php?failed_msg=All fields are required");
+        $_SESSION['failed_msg'] = 'All fields are required';
+        header("location:../login.php");
     } else {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -21,14 +22,18 @@ if (isset($_POST['login'])) {
             if ($row === 1) {
                 $admain = mysqli_fetch_assoc($result);
                 if (!password_verify($password, $admain['password'])) {
-                    header("location:../login.php?failed_msg=Email and password are not identical");
+                    $_SESSION['failed_msg']= 'Email and password are not identical';
+                    header("location:../login.php");
                 } else {
                     $_SESSION['username'] = $admain['name'];
                     $_SESSION['id'] = $admain['id'];
-                    header("location:../students.php?success_msg=Logged in has been successfully");
+                    $_SESSION['success_msg'] = 'Logged in has been successfully';
+
+                    header("location:../students.php");
                 }
             } else {
-                header("location:../login.php?failed_msg=Email and password are not identical");
+                $_SESSION['failed_msg'] = 'Email and password are not identical';
+                header("location:../login.php");
             }
         }
     }

@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 include('../connect.php');
 
 
@@ -10,7 +11,8 @@ if (isset($_POST['add-Student'])) {
 }
 
 if (empty($first_name) && empty($last_name)) {
-    header('location:../students.php?failed_msg=please input all fields');
+    $_SESSION['failed_msg']= 'please input all fields';
+    header('location:../students.php');
 } else {
 
     $query = "INSERT INTO students (first_name,last_name,age)
@@ -20,6 +22,7 @@ if (empty($first_name) && empty($last_name)) {
     if (!$result) {
         die('The query is failed' . mysqli_error($conn));
     } else {
-        header('location:../students.php?success_msg=your data has been added successfully');
+        $_SESSION['success_msg'] = 'your data has been added successfully';
+        header('location:../students.php');
     }
 }

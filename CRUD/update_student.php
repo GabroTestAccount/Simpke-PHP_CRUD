@@ -4,8 +4,10 @@ session_start();
 include('../connect.php');
 include('../layout/header.php');
 
-if (!isset($_SESSION['username']))
-    header("location:login.php?failed_msg=you don't have access please login or sign up to enter this site");
+if (!isset($_SESSION['username'])){
+    $_SESSION['failed_msg'] = "you don't have access please login or sign up to enter this site";
+    header("location:login.php");
+}
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -40,7 +42,8 @@ if (isset($_POST['update_Student'])) {
     if (!$result) {
         die('Error' . mysqli_error($conn));
     } else {
-        header('location:../students.php?success_msg=your data has been updated successfully');
+        $_SESSION['success_msg']= "your data has been updated successfully";
+        header('location:../students.php');
     }
 }
 

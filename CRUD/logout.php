@@ -4,5 +4,6 @@ session_start();
 session_unset();
 session_destroy();
 
-header("location:../login.php?success_msg=you logged out successfully");
+$_SESSION['success_msg']= 'you logged out successfully';
+header("location:../login.php");
 

@@ -2,7 +2,7 @@
 
 
 session_start();
-$_SESSION['current_page']= "signup";
+$_SESSION['current_page'] = "signup";
 
 include('connect.php');
 include('layout/header.php');
@@ -16,22 +16,26 @@ include('layout/header.php');
 <br>
 <!-- Failed Message -->
 <?php
-if (isset($_GET['failed_msg'])) {
+if (isset($_SESSION['failed_msg'])) {
 ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong> <?php echo $_GET["failed_msg"]; ?> </strong> .
+        <strong> <?php echo $_SESSION["failed_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php } ?>
+<?php
+    unset($_SESSION["failed_msg"]);
+} ?>
 <!-- Success Message -->
 <?php
-if (isset($_GET['success_msg'])) {
+if (isset($_SESSION['success_msg'])) {
 ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong> <?php echo $_GET["success_msg"]; ?> </strong> .
+        <strong> <?php echo $_SESSION["success_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php } ?>
+<?php
+    unset($_SESSION["success_msg"]);
+} ?>
 
 <div class="d-flex justify-content-center">
 

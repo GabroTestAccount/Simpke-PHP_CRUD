@@ -13,7 +13,8 @@ if (isset($_POST['delete_Student'])) {
         if (!$result) {
             die("you can't delete the student" . mysqli_error($conn));
         } else {
-            header('location:../students.php?delete_msg=The student has been deleted successfullly');
+            $_SESSION['delete_msg'] = 'The student has been deleted successfullly';
+            header('location:../students.php');
         }
     }
 }
