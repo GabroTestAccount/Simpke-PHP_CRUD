@@ -6,11 +6,10 @@ $_SESSION['current_page'] = "Students";
 include_once('connect.php');
 include_once('layout/header.php');
 
-if (!isset($_SESSION['username']))
-    {
-        $_SESSION['failed_msg']= "you don't have access please login or sign up to enter this site";
-        header("location:login.php");
-    }
+if (!isset($_SESSION['username'])) {
+    $_SESSION['failed_msg'] = "you don't have access please login or sign up to enter this site";
+    header("location:login.php");
+}
 ?>
 <br>
 <div class="container ">
@@ -29,7 +28,7 @@ if (isset($_SESSION['failed_msg'])) {
         <strong> <?php echo $_SESSION["failed_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php 
+<?php
     unset($_SESSION["failed_msg"]);
 } ?>
 <!-- Success Message -->
@@ -41,7 +40,7 @@ if (isset($_SESSION['success_msg'])) {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 <?php
-    unset($_SESSION["success_msg"]); 
+    unset($_SESSION["success_msg"]);
 } ?>
 <!-- Delete Message -->
 <?php
@@ -51,7 +50,7 @@ if (isset($_SESSION['delete_msg'])) {
         <strong> <?php echo $_SESSION["delete_msg"]; ?> </strong> .
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-<?php 
+<?php
     unset($_SESSION["delete_msg"]);
 } ?>
 <table class="table">
@@ -71,6 +70,7 @@ if (isset($_SESSION['delete_msg'])) {
                 <th scope="col">#</th>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
+                <th scope="col">Email</th>
                 <th scope="col">Age</th>
                 <th scope="col">Update</th>
                 <th scope="col">Delete</th>
@@ -97,9 +97,18 @@ if (isset($_SESSION['delete_msg'])) {
                     <th scope="col"><?php echo $row['id']; ?></th>
                     <th scope="col"><?php echo $row['first_name']; ?></th>
                     <th scope="col"><?php echo $row['last_name']; ?></th>
+                    <th scope="col"><?php echo $row['email']; ?></th>
                     <th scope="col"><?php echo $row['age']; ?></th>
-                    <th scope="col"><a href="CRUD/update_student.php?id=<?php echo $row['id']; ?>" name="update_student" class="btn btn-success">
-                            Update</a></th>
+                    <!-- use POST to pass the ID -->
+                    <th scope="col">
+                        <form action="CRUD/update_student.php" method="POST">
+                            <input type="submit" name="update_student" value="Update" class="btn btn-success">
+                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>"/>
+                        </form>
+                    </th>
+                    <!-- <th scope="col"><a href="CRUD/update_student.php?id=<?php //echo $row['id']; 
+                                                                                ?>" name="update_student" class="btn btn-success">
+                            Update</a></th> -->
                     <th scope="col">
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_Student<?php echo $row['id']; ?>">
                             Delete
@@ -147,15 +156,19 @@ if (isset($_SESSION['delete_msg'])) {
                 <div class="modal-body form-control">
                     <div class="row ">
                         <label for="first_name" class="form-label">First Name</label>
-                        <input type="text" id="first_name" class="form-control" name="first_name" value="" placeholder="Write your first name">
+                        <input type="text" id="first_name" class="form-control" name="first_name" value="" placeholder="Write your first name" required>
                     </div>
                     <div class="row ">
                         <label for="last_name" class="form-label">Last Name</label>
-                        <input type="text" id="last_name" class="form-control" name="last_name" value="" placeholder="Write your last name">
+                        <input type="text" id="last_name" class="form-control" name="last_name" value="" placeholder="Write your last name" required>
+                    </div>
+                    <div class="row ">
+                        <label for="email" class="form-label">email</label>
+                        <input type="email" id="email" class="form-control" name="email" value="" placeholder="Write your email" required>
                     </div>
                     <div class="row ">
                         <label for="age" class="form-label">Age</label>
-                        <input type="text" id="age" class="form-control" name="age" value="" placeholder="Write your age">
+                        <input type="text" id="age" class="form-control" name="age" value="" placeholder="Write your age" required>
                     </div>
                 </div>
                 <div class="modal-footer">
